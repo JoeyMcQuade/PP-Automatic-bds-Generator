@@ -24,14 +24,17 @@ def export_internal_datasets(swd_folder_path, bds_output_file):
             except:
                 break
     
-
+        
         for x in range(total_overlay):
-            s.SetProperty(5, x, "_status&", 1)
-            overlay_name = s.GetProperty(5, x, "_name$")
-            file_name = f"{remove_invalid_char(overlay_name)}.bds"
-            bds_file_path = bds_output_file + f"//{file_name}"
-            s.ExportBds(bds_file_path, 64)
-            s.SetProperty(5, x, "_status&", 0)
+            try:
+                s.SetProperty(5, x, "_status&", 1)
+                overlay_name = s.GetProperty(5, x, "_name$")
+                file_name = f"{remove_invalid_char(overlay_name)}.bds"
+                bds_file_path = bds_output_file + f"//{file_name}"
+                s.ExportBds(bds_file_path, 64)
+                s.SetProperty(5, x, "_status&", 0)
+            except:
+                continue
 
 # def find_all_swd(swd_folder):
 #     all_swd_files = glob.glob(os.path.join(swd_folder, ".bds"))
